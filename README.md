@@ -41,39 +41,41 @@ Modify the Main App Theme to AppCompat，For example:
 
 ```
   ///初始化
-  void initXUpdate() {
-    if (Platform.isAndroid) {
-      FlutterXUpdate.init(
-              ///是否输出日志
-              debug: true,
-              ///是否使用post请求
-              isPost: false,
-              ///post请求是否是上传json
-              isPostJson: false,
-              ///是否开启自动模式
-              isWifiOnly: false,
-              ///是否开启自动模式
-              isAutoMode: false,
-              ///需要设置的公共参数
-              supportSilentInstall: false)
-          .then((value) {
-        updateMessage("初始化成功: $value");
-      }).catchError((error) {
-        print(error);
-      });
+   void initXUpdate() {
+     if (Platform.isAndroid) {
+       FlutterXUpdate.init(
+         ///是否输出日志
+         debug: true,
+         ///是否使用post请求
+         isPost: false,
+         ///post请求是否是上传json
+         isPostJson: false,
+         ///是否开启自动模式
+         isWifiOnly: false,
+         ///是否开启自动模式
+         isAutoMode: false,
+         ///需要设置的公共参数
+         supportSilentInstall: false,
+         ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
+         enableRetry: false
+       ).then((value) {
+         updateMessage("初始化成功: $value");
+       }).catchError((error) {
+         print(error);
+       });
 
-      //设置出错监听
-      FlutterXUpdate.setErrorHandler(
-          onUpdateError: (Map<String, dynamic> message) async {
-        print(message);
-        setState(() {
-          _message = "$message";
-        });
-      });
-    } else {
-      updateMessage("ios暂不支持XUpdate更新");
-    }
-  }
+       FlutterXUpdate.setErrorHandler(
+           onUpdateError: (Map<String, dynamic> message) async {
+         print(message);
+         setState(() {
+           _message = "$message";
+         });
+       });
+     } else {
+       updateMessage("ios暂不支持XUpdate更新");
+     }
+   }
+
 ```
 
 ### CheckUpdate
@@ -102,5 +104,15 @@ Modify the Main App Theme to AppCompat，For example:
   ///自动模式, 如果需要完全无人干预，自动更新，需要root权限【静默安装需要】
   void checkUpdate4() {
     FlutterXUpdate.checkUpdate(url: _updateUrl, isAutoMode: true);
+  }
+
+  ///下载时点击取消允许切换下载方式
+  void checkUpdate5() {
+    FlutterXUpdate.checkUpdate(
+      url: _updateUrl,
+      overrideGlobalRetryStrategy: true,
+      enableRetry: true,
+      retryContent: "Github下载速度太慢了，是否考虑切换蒲公英下载？",
+      retryUrl: "https://www.pgyer.com/flutter_learn");
   }
 ```

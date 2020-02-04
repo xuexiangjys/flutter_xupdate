@@ -23,19 +23,21 @@ class _MyAppState extends State<MyApp> {
   void initXUpdate() {
     if (Platform.isAndroid) {
       FlutterXUpdate.init(
-              ///是否输出日志
-              debug: true,
-              ///是否使用post请求
-              isPost: false,
-              ///post请求是否是上传json
-              isPostJson: false,
-              ///是否开启自动模式
-              isWifiOnly: false,
-              ///是否开启自动模式
-              isAutoMode: false,
-              ///需要设置的公共参数
-              supportSilentInstall: false)
-          .then((value) {
+        ///是否输出日志
+        debug: true,
+        ///是否使用post请求
+        isPost: false,
+        ///post请求是否是上传json
+        isPostJson: false,
+        ///是否开启自动模式
+        isWifiOnly: false,
+        ///是否开启自动模式
+        isAutoMode: false,
+        ///需要设置的公共参数
+        supportSilentInstall: false,
+        ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
+        enableRetry: false
+      ).then((value) {
         updateMessage("初始化成功: $value");
       }).catchError((error) {
         print(error);
@@ -118,6 +120,18 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ],
                 )),
+                autoFitWidget(ButtonBar(
+                  alignment:
+                      MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                  mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text('下载时点击取消允许切换下载方式'),
+                      color: Colors.blue,
+                      onPressed: checkUpdate5,
+                    ),
+                  ],
+                )),
               ],
             )),
       ),
@@ -157,5 +171,15 @@ class _MyAppState extends State<MyApp> {
   ///自动模式, 如果需要完全无人干预，自动更新，需要root权限【静默安装需要】
   void checkUpdate4() {
     FlutterXUpdate.checkUpdate(url: _updateUrl, isAutoMode: true);
+  }
+
+  ///下载时点击取消允许切换下载方式
+  void checkUpdate5() {
+    FlutterXUpdate.checkUpdate(
+        url: _updateUrl,
+        overrideGlobalRetryStrategy: true,
+        enableRetry: true,
+        retryContent: "Github下载速度太慢了，是否考虑切换蒲公英下载？",
+        retryUrl: "https://www.pgyer.com/flutter_learn");
   }
 }

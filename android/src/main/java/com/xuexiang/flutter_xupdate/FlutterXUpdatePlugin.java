@@ -88,6 +88,9 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         Boolean isWifiOnly = (Boolean) map.get("isWifiOnly");
         Boolean isAutoMode = (Boolean) map.get("isAutoMode");
         Boolean supportSilentInstall = (Boolean) map.get("supportSilentInstall");
+        Boolean enableRetry = (Boolean) map.get("enableRetry");
+        String retryContent = (String) map.get("retryContent");
+        String retryUrl = (String) map.get("retryUrl");
 
         XUpdate.get()
                 .debug(debug)
@@ -114,6 +117,7 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
                 //设置默认公共请求参数
                 .param("versionCode", UpdateUtils.getVersionCode(mApplication))
                 .param("appKey", mApplication.getPackageName())
+                .setIUpdateDownLoader(new RetryUpdateDownloader(enableRetry, retryContent, retryUrl))
                 //这个必须设置！实现网络请求功能。
                 .setIUpdateHttpService(new OKHttpUpdateHttpService(isPostJson));
         if (map.get("params") != null) {
@@ -137,10 +141,15 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         }
 
         String url = call.argument("url");
-        Boolean supportBackgroundUpdate = call.argument("supportBackgroundUpdate");
+        boolean supportBackgroundUpdate = call.argument("supportBackgroundUpdate");
+        boolean isAutoMode = call.argument("isAutoMode");
         Double widthRatio = call.argument("widthRatio");
         Double heightRatio = call.argument("heightRatio");
-        Boolean isAutoMode = call.argument("isAutoMode");
+
+        boolean overrideGlobalRetryStrategy = call.argument("overrideGlobalRetryStrategy");
+        boolean enableRetry = call.argument("enableRetry");
+        String retryContent = call.argument("retryContent");
+        String retryUrl = call.argument("retryUrl");
 
         UpdateManager.Builder builder = XUpdate.newBuild(mActivity.get())
                 .updateUrl(url)
@@ -154,6 +163,9 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         }
         if (heightRatio != null) {
             builder.promptHeightRatio(heightRatio.floatValue());
+        }
+        if (overrideGlobalRetryStrategy) {
+            builder.updateDownLoader(new RetryUpdateDownloader(enableRetry, retryContent, retryUrl));
         }
         builder.update();
     }

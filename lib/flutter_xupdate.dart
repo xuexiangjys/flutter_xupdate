@@ -29,6 +29,12 @@ class FlutterXUpdate {
     bool isAutoMode = false,
     ///是否支持静默安装，这个需要设备有root权限
     bool supportSilentInstall = false,
+    ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
+    bool enableRetry = false,
+    ///重试提示弹窗的提示内容
+    String retryContent = "",
+    ///重试提示弹窗点击后跳转的url
+    String retryUrl = "",
     ///需要设置的公共参数
     Map params
   }) async {
@@ -40,6 +46,9 @@ class FlutterXUpdate {
         "isWifiOnly": isWifiOnly,
         "isAutoMode": isAutoMode,
         "supportSilentInstall": supportSilentInstall,
+        "enableRetry": enableRetry,
+        "retryContent": retryContent,
+        "retryUrl": retryUrl,
         "params": params,
       };
       final Map resultMap = await _channel.invokeMethod('initXUpdate', map);
@@ -62,7 +71,15 @@ class FlutterXUpdate {
     ///版本更新提示器宽度占屏幕的比例, 不设置的话不做约束
     double widthRatio,
     ///版本更新提示器高度占屏幕的比例, 不设置的话不做约束
-    double heightRatio
+    double heightRatio,
+    ///是否覆盖全局的重试策略
+    bool overrideGlobalRetryStrategy = false,
+    ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
+    bool enableRetry = false,
+    ///重试提示弹窗的提示内容
+    String retryContent = "",
+    ///重试提示弹窗点击后跳转的url
+    String retryUrl = ""
   }) async {
     if (Platform.isAndroid) {
       Map<String, Object> map = {
@@ -72,6 +89,10 @@ class FlutterXUpdate {
         "isAutoMode": isAutoMode,
         "widthRatio": widthRatio,
         "heightRatio": heightRatio,
+        "overrideGlobalRetryStrategy": overrideGlobalRetryStrategy,
+        "enableRetry": enableRetry,
+        "retryContent": retryContent,
+        "retryUrl": retryUrl,
       };
       await _channel.invokeMethod('checkUpdate', map);
     }
