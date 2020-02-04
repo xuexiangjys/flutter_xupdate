@@ -100,7 +100,11 @@ class FlutterXUpdate {
 
   ///
   /// 设置出错的接口回调
-  ///
+  /// 返回内容 {
+  ///   code：错误码
+  ///   message：错误信息
+  ///   detailMsg：错误详细信息
+  /// }
   static void setErrorHandler({
     ErrorHandler onUpdateError,
   }) {
