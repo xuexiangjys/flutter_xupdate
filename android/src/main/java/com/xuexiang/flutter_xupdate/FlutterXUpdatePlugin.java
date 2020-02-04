@@ -192,7 +192,7 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
     }
 
     public static void registerWith(Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_xupdate");
+        final MethodChannel channel = new MethodChannel(registrar.messenger(), "com.xuexiang/flutter_xupdate");
         channel.setMethodCallHandler(new FlutterXUpdatePlugin().initPlugin(channel, registrar));
     }
 }
