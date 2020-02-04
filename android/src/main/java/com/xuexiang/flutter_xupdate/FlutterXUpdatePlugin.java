@@ -32,13 +32,15 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
  */
 public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, MethodCallHandler {
 
+    private static final String PLUGIN_NAME = "com.xuexiang/flutter_xupdate";
+
     private MethodChannel mMethodChannel;
     private Application mApplication;
     private WeakReference<Activity> mActivity;
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-        mMethodChannel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "com.xuexiang/flutter_xupdate");
+        mMethodChannel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), PLUGIN_NAME);
         mApplication = (Application) flutterPluginBinding.getApplicationContext();
         mMethodChannel.setMethodCallHandler(this);
     }
@@ -192,7 +194,7 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
     }
 
     public static void registerWith(Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "com.xuexiang/flutter_xupdate");
+        final MethodChannel channel = new MethodChannel(registrar.messenger(), PLUGIN_NAME);
         channel.setMethodCallHandler(new FlutterXUpdatePlugin().initPlugin(channel, registrar));
     }
 }
