@@ -1,5 +1,9 @@
 # flutter_xupdate
 
+[![Version](https://img.shields.io/badge/version-0.0.1-blue.svg)](https://pub.dev/packages/flutter_xupdate)
+[![Build Status](https://travis-ci.org/xuexiangjys/flutter_xupdate.svg?branch=master)](https://travis-ci.org/xuexiangjys/flutter_xupdate)
+[![Coverage](https://codecov.io/gh/xuexiangjys/flutter_xupdate/branch/master/graph/badge.svg)](https://codecov.io/gh/xuexiangjys/flutter_xupdate)
+
 A Flutter plugin for Android Version Update.
 
 ## Getting Started
