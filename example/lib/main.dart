@@ -46,6 +46,12 @@ class _MyAppState extends State<MyApp> {
       FlutterXUpdate.setErrorHandler(
           onUpdateError: (Map<String, dynamic> message) async {
         print(message);
+        //下载失败
+        if (message["code"] == 4000) {
+          FlutterXUpdate.showRetryUpdateTipDialog(
+              retryContent: "Github被墙无法继续下载，是否考虑切换蒲公英下载？",
+              retryUrl: "https://www.pgyer.com/flutter_learn");
+        }
         setState(() {
           _message = "$message";
         });
@@ -130,6 +136,11 @@ class _MyAppState extends State<MyApp> {
                       color: Colors.blue,
                       onPressed: checkUpdate5,
                     ),
+                    RaisedButton(
+                      child: Text('显示重试提示弹窗'),
+                      color: Colors.blue,
+                      onPressed: checkUpdate6,
+                    ),
                   ],
                 )),
               ],
@@ -179,6 +190,13 @@ class _MyAppState extends State<MyApp> {
         url: _updateUrl,
         overrideGlobalRetryStrategy: true,
         enableRetry: true,
+        retryContent: "Github下载速度太慢了，是否考虑切换蒲公英下载？",
+        retryUrl: "https://www.pgyer.com/flutter_learn");
+  }
+
+  ///显示重试提示弹窗
+  void checkUpdate6() {
+    FlutterXUpdate.showRetryUpdateTipDialog(
         retryContent: "Github下载速度太慢了，是否考虑切换蒲公英下载？",
         retryUrl: "https://www.pgyer.com/flutter_learn");
   }

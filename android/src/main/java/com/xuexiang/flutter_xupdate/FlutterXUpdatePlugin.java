@@ -70,6 +70,9 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
             case "checkUpdate":
                 checkUpdate(call, result);
                 break;
+            case "showRetryUpdateTipDialog":
+                showRetryUpdateTipDialog(call, result);
+                break;
             default:
                 result.notImplemented();
                 break;
@@ -170,6 +173,19 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
             builder.updateDownLoader(new RetryUpdateDownloader(enableRetry, retryContent, retryUrl));
         }
         builder.update();
+    }
+
+
+    /**
+     * 显示重试提示弹窗
+     * @param call
+     * @param result
+     */
+    private void showRetryUpdateTipDialog(MethodCall call, Result result) {
+        String retryContent = call.argument("retryContent");
+        String retryUrl = call.argument("retryUrl");
+
+        RetryUpdateTipDialog.show(retryContent, retryUrl);
     }
 
 

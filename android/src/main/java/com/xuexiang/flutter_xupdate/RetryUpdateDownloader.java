@@ -74,7 +74,7 @@ public class RetryUpdateDownloader extends DefaultUpdateDownloader {
             if (mEnableRetry && !TextUtils.isEmpty(mRetryUrl)) {
                 RetryUpdateTipDialog.show(mRetryContent, mRetryUrl);
             } else {
-                _XUpdate.onUpdateError(UpdateError.ERROR.DOWNLOAD_FAILED, "取消下载");
+                _XUpdate.onUpdateError(4002, "取消下载");
             }
         }
     }

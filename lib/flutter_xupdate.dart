@@ -121,5 +121,20 @@ class FlutterXUpdate {
     }
   }
 
+  ///显示重试提示弹窗
+  static Future<Null> showRetryUpdateTipDialog({
+    ///重试提示弹窗的提示内容
+    String retryContent = "",
+    ///重试提示弹窗点击后跳转的url
+    @required String retryUrl}) async {
+    if (Platform.isAndroid) {
+      Map<String, Object> map = {
+        "retryContent": retryContent,
+        "retryUrl": retryUrl,
+      };
+      await _channel.invokeMethod('showRetryUpdateTipDialog', map);
+    }
+  }
+
 
 }

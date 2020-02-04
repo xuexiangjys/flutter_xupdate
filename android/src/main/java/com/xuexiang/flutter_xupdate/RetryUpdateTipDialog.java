@@ -68,7 +68,7 @@ public class RetryUpdateTipDialog extends AppCompatActivity implements DialogInt
             content = "更新下载速度太慢了，是否考虑切换下载方式？";
         }
 
-        new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setMessage(content)
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
@@ -80,6 +80,7 @@ public class RetryUpdateTipDialog extends AppCompatActivity implements DialogInt
                 .setNegativeButton( "否", null)
                 .setCancelable(false)
                 .show();
+        dialog.setOnDismissListener(this);
     }
 
     /**
