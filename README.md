@@ -2,6 +2,8 @@
 
 [![Version](https://img.shields.io/badge/version-0.0.1-blue.svg)](https://pub.dev/packages/flutter_xupdate)
 [![Build Status](https://travis-ci.org/xuexiangjys/flutter_xupdate.svg?branch=master)](https://travis-ci.org/xuexiangjys/flutter_xupdate)
+[![Issue](https://img.shields.io/github/issues/xuexiangjys/flutter_xupdate.svg)](https://github.com/xuexiangjys/flutter_xupdate/issues)
+[![Star](https://img.shields.io/github/stars/xuexiangjys/flutter_xupdate.svg)](https://github.com/xuexiangjys/flutter_xupdate)
 
 A Flutter plugin for [XUpdate](https://github.com/xuexiangjys/XUpdate) -- Android Update Library。
 

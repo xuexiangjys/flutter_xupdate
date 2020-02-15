@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_xupdate/flutter_xupdate.dart';
+import 'package:flutter_xupdate_example/app_info.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,48 +15,88 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _message = '';
 
+  String _customJson = '';
+
   @override
   void initState() {
     super.initState();
     initXUpdate();
+    loadJsonFromAsset();
+  }
+
+  Future<void> loadJsonFromAsset() async {
+    _customJson = await rootBundle.loadString('assets/update_custom.json');
   }
 
   ///初始化
   void initXUpdate() {
     if (Platform.isAndroid) {
       FlutterXUpdate.init(
+
         ///是否输出日志
-        debug: true,
-        ///是否使用post请求
-        isPost: false,
-        ///post请求是否是上传json
-        isPostJson: false,
-        ///是否开启自动模式
-        isWifiOnly: false,
-        ///是否开启自动模式
-        isAutoMode: false,
-        ///需要设置的公共参数
-        supportSilentInstall: false,
-        ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
-        enableRetry: false
-      ).then((value) {
+          debug: true,
+
+          ///是否使用post请求
+          isPost: false,
+
+          ///post请求是否是上传json
+          isPostJson: false,
+
+          ///是否开启自动模式
+          isWifiOnly: false,
+
+          ///是否开启自动模式
+          isAutoMode: false,
+
+          ///需要设置的公共参数
+          supportSilentInstall: false,
+
+          ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
+          enableRetry: false)
+          .then((value) {
         updateMessage("初始化成功: $value");
       }).catchError((error) {
         print(error);
       });
 
-      FlutterXUpdate.setErrorHandler(
+//      FlutterXUpdate.setErrorHandler(
+//          onUpdateError: (Map<String, dynamic> message) async {
+//        print(message);
+//        //下载失败
+//        if (message["code"] == 4000) {
+//          FlutterXUpdate.showRetryUpdateTipDialog(
+//              retryContent: "Github被墙无法继续下载，是否考虑切换蒲公英下载？",
+//              retryUrl: "https://www.pgyer.com/flutter_learn");
+//        }
+//        setState(() {
+//          _message = "$message";
+//        });
+//      });
+
+      FlutterXUpdate.setUpdateHandler(
           onUpdateError: (Map<String, dynamic> message) async {
-        print(message);
-        //下载失败
-        if (message["code"] == 4000) {
-          FlutterXUpdate.showRetryUpdateTipDialog(
-              retryContent: "Github被墙无法继续下载，是否考虑切换蒲公英下载？",
-              retryUrl: "https://www.pgyer.com/flutter_learn");
-        }
-        setState(() {
-          _message = "$message";
-        });
+            print(message);
+            //下载失败
+            if (message["code"] == 4000) {
+              FlutterXUpdate.showRetryUpdateTipDialog(
+                  retryContent: "Github被墙无法继续下载，是否考虑切换蒲公英下载？",
+                  retryUrl: "https://www.pgyer.com/flutter_learn");
+            }
+            setState(() {
+              _message = "$message";
+            });
+          }, onUpdateParse: (String json) async {
+        //这里是自定义json解析
+        AppInfo appInfo = AppInfo.fromJson(json);
+        print(appInfo);
+        return UpdateEntity(
+            hasUpdate: appInfo.hasUpdate,
+            isIgnorable: appInfo.isIgnorable,
+            versionCode: appInfo.versionCode,
+            versionName: appInfo.versionName,
+            updateContent: appInfo.updateLog,
+            downloadUrl: appInfo.apkUrl,
+            apkSize: appInfo.apkSize);
       });
     } else {
       updateMessage("ios暂不支持XUpdate更新");
@@ -89,7 +131,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 autoFitWidget(ButtonBar(
                   alignment:
-                      MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
                     RaisedButton(
@@ -106,7 +148,7 @@ class _MyAppState extends State<MyApp> {
                 )),
                 autoFitWidget(ButtonBar(
                   alignment:
-                      MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
                     RaisedButton(
@@ -128,7 +170,7 @@ class _MyAppState extends State<MyApp> {
                 )),
                 autoFitWidget(ButtonBar(
                   alignment:
-                      MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
                     RaisedButton(
@@ -143,6 +185,23 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ],
                 )),
+                autoFitWidget(ButtonBar(
+                  alignment:
+                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                  mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text('使用自定义json解析'),
+                      color: Colors.blue,
+                      onPressed: checkUpdate7,
+                    ),
+                    RaisedButton(
+                      child: Text('直接传入UpdateEntity进行更新'),
+                      color: Colors.blue,
+                      onPressed: checkUpdate8,
+                    ),
+                  ],
+                ))
               ],
             )),
       ),
@@ -156,8 +215,11 @@ class _MyAppState extends State<MyApp> {
   String _updateUrl =
       "https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_test.json";
 
-  String mUpdateUrl2 =
+  String _updateUrl2 =
       "https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_forced.json";
+
+  String _updateUrl3 =
+      "https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_custom.json";
 
   ///默认App更新
   void checkUpdate() {
@@ -176,7 +238,7 @@ class _MyAppState extends State<MyApp> {
 
   ///强制更新
   void checkUpdate3() {
-    FlutterXUpdate.checkUpdate(url: mUpdateUrl2);
+    FlutterXUpdate.checkUpdate(url: _updateUrl2);
   }
 
   ///自动模式, 如果需要完全无人干预，自动更新，需要root权限【静默安装需要】
@@ -200,4 +262,26 @@ class _MyAppState extends State<MyApp> {
         retryContent: "Github下载速度太慢了，是否考虑切换蒲公英下载？",
         retryUrl: "https://www.pgyer.com/flutter_learn");
   }
+
+  ///使用自定义json解析
+  void checkUpdate7() {
+    FlutterXUpdate.checkUpdate(url: _updateUrl3, isCustomParse: true);
+  }
+
+  ///直接传入UpdateEntity进行更新提示
+  void checkUpdate8() {
+    AppInfo appInfo = AppInfo.fromJson(_customJson);
+
+    FlutterXUpdate.updateByInfo(updateEntity: UpdateEntity(
+        hasUpdate: appInfo.hasUpdate,
+        isIgnorable: appInfo.isIgnorable,
+        versionCode: appInfo.versionCode,
+        versionName: appInfo.versionName,
+        updateContent: appInfo.updateLog,
+        downloadUrl: appInfo.apkUrl,
+        apkSize: appInfo.apkSize)
+    );
+  }
+
+
 }

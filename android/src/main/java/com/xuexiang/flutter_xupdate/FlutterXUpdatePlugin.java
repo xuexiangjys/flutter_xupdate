@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.xuexiang.xupdate.UpdateManager;
 import com.xuexiang.xupdate.XUpdate;
+import com.xuexiang.xupdate.entity.UpdateEntity;
 import com.xuexiang.xupdate.entity.UpdateError;
 import com.xuexiang.xupdate.listener.OnUpdateFailureListener;
 import com.xuexiang.xupdate.utils.UpdateUtils;
@@ -69,6 +70,9 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
                 break;
             case "checkUpdate":
                 checkUpdate(call, result);
+                break;
+            case "updateByInfo":
+                updateByInfo(call, result);
                 break;
             case "showRetryUpdateTipDialog":
                 showRetryUpdateTipDialog(call, result);
@@ -148,6 +152,7 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         String url = call.argument("url");
         boolean supportBackgroundUpdate = call.argument("supportBackgroundUpdate");
         boolean isAutoMode = call.argument("isAutoMode");
+        boolean isCustomParse = call.argument("isCustomParse");
         Double widthRatio = call.argument("widthRatio");
         Double heightRatio = call.argument("heightRatio");
 
@@ -163,6 +168,9 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         if (call.argument("params") != null) {
             builder.params((Map<String, Object>) call.argument("params"));
         }
+        if (isCustomParse) {
+            builder.updateParser(new FlutterCustomUpdateParser(mMethodChannel));
+        }
         if (widthRatio != null) {
             builder.promptWidthRatio(widthRatio.floatValue());
         }
@@ -177,7 +185,50 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
 
 
     /**
+     * 直接传入UpdateEntity进行版本更新
+     *
+     * @param call
+     * @param result
+     */
+    private void updateByInfo(MethodCall call, Result result) {
+        if (mActivity == null || mActivity.get() == null) {
+            result.error("1001", "Not attach a Activity", null);
+        }
+
+        HashMap<String, Object> map = call.argument("updateEntity");
+        UpdateEntity updateEntity = FlutterCustomUpdateParser.parseUpdateEntityMap(map);
+
+        boolean supportBackgroundUpdate = call.argument("supportBackgroundUpdate");
+        boolean isAutoMode = call.argument("isAutoMode");
+        Double widthRatio = call.argument("widthRatio");
+        Double heightRatio = call.argument("heightRatio");
+
+        boolean overrideGlobalRetryStrategy = call.argument("overrideGlobalRetryStrategy");
+        boolean enableRetry = call.argument("enableRetry");
+        String retryContent = call.argument("retryContent");
+        String retryUrl = call.argument("retryUrl");
+
+
+        UpdateManager.Builder builder = XUpdate.newBuild(mActivity.get())
+                .isAutoMode(isAutoMode)
+                .supportBackgroundUpdate(supportBackgroundUpdate);
+        if (widthRatio != null) {
+            builder.promptWidthRatio(widthRatio.floatValue());
+        }
+        if (heightRatio != null) {
+            builder.promptHeightRatio(heightRatio.floatValue());
+        }
+        if (overrideGlobalRetryStrategy) {
+            builder.updateDownLoader(new RetryUpdateDownloader(enableRetry, retryContent, retryUrl));
+        }
+        builder.build().update(updateEntity);
+
+    }
+
+
+    /**
      * 显示重试提示弹窗
+     *
      * @param call
      * @param result
      */
