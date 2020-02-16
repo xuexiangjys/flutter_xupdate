@@ -14,7 +14,7 @@ You should ensure that you add the `flutter_xupdate` as a dependency in your flu
 ```
 // pub 集成
 dependencies:
-  flutter_xupdate: ^0.0.1
+  flutter_xupdate: ^0.0.2
 
 //github  集成
 dependencies:
