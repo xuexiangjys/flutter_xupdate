@@ -124,6 +124,45 @@ Demonstrates how to use the flutter_xupdate plugin.
   }
 ```
 
+### Custom JSON Format
+
+1.Setting up a custom update parser
+
+```
+FlutterXUpdate.setCustomParseHandler(onUpdateParse: (String json) async {
+//Here is the custom JSON parsing
+return customParseJson(json);
+});
+
+///Resolve the custom JSON content to the UpdateEntity entity class
+UpdateEntity customParseJson(String json) {
+  AppInfo appInfo = AppInfo.fromJson(json);
+  return UpdateEntity(
+      hasUpdate: appInfo.hasUpdate,
+      isIgnorable: appInfo.isIgnorable,
+      versionCode: appInfo.versionCode,
+      versionName: appInfo.versionName,
+      updateContent: appInfo.updateLog,
+      downloadUrl: appInfo.apkUrl,
+      apkSize: appInfo.apkSize);
+}
+```
+
+2.Set the parameter `isCustomParse` to true
+
+```
+FlutterXUpdate.checkUpdate(url: _updateUrl3, isCustomParse: true);
+```
+
+### Update By UpdateEntity Directly
+
+```
+///直接传入UpdateEntity进行更新提示
+void checkUpdate8() {
+    FlutterXUpdate.updateByInfo(updateEntity: customParseJson(_customJson));
+}
+```
+
 ## Related links
 
 * [XUpdate Android SDK](https://github.com/xuexiangjys/XUpdate)

@@ -1,6 +1,6 @@
 name: flutter_xupdate
-description: A Flutter plugin for Android Version Update.
-version: 0.0.1
+description: A Flutter plugin for XUpdate(Android Version Update Library).
+version: 0.0.2
 author: xuexiangjys <xuexiangjys@163.com>
 homepage: https://github.com/xuexiangjys/flutter_xupdate
 

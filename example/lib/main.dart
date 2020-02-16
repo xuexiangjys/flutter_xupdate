@@ -33,26 +33,26 @@ class _MyAppState extends State<MyApp> {
     if (Platform.isAndroid) {
       FlutterXUpdate.init(
 
-        ///是否输出日志
-          debug: true,
+              ///是否输出日志
+              debug: true,
 
-          ///是否使用post请求
-          isPost: false,
+              ///是否使用post请求
+              isPost: false,
 
-          ///post请求是否是上传json
-          isPostJson: false,
+              ///post请求是否是上传json
+              isPostJson: false,
 
-          ///是否开启自动模式
-          isWifiOnly: false,
+              ///是否开启自动模式
+              isWifiOnly: false,
 
-          ///是否开启自动模式
-          isAutoMode: false,
+              ///是否开启自动模式
+              isAutoMode: false,
 
-          ///需要设置的公共参数
-          supportSilentInstall: false,
+              ///需要设置的公共参数
+              supportSilentInstall: false,
 
-          ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
-          enableRetry: false)
+              ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
+              enableRetry: false)
           .then((value) {
         updateMessage("初始化成功: $value");
       }).catchError((error) {
@@ -73,30 +73,26 @@ class _MyAppState extends State<MyApp> {
 //        });
 //      });
 
+//      FlutterXUpdate.setCustomParseHandler(onUpdateParse: (String json) async {
+//        //这里是自定义json解析
+//        return customParseJson(json);
+//      });
+
       FlutterXUpdate.setUpdateHandler(
           onUpdateError: (Map<String, dynamic> message) async {
-            print(message);
-            //下载失败
-            if (message["code"] == 4000) {
-              FlutterXUpdate.showRetryUpdateTipDialog(
-                  retryContent: "Github被墙无法继续下载，是否考虑切换蒲公英下载？",
-                  retryUrl: "https://www.pgyer.com/flutter_learn");
-            }
-            setState(() {
-              _message = "$message";
-            });
-          }, onUpdateParse: (String json) async {
+        print(message);
+        //下载失败
+        if (message["code"] == 4000) {
+          FlutterXUpdate.showRetryUpdateTipDialog(
+              retryContent: "Github被墙无法继续下载，是否考虑切换蒲公英下载？",
+              retryUrl: "https://www.pgyer.com/flutter_learn");
+        }
+        setState(() {
+          _message = "$message";
+        });
+      }, onUpdateParse: (String json) async {
         //这里是自定义json解析
-        AppInfo appInfo = AppInfo.fromJson(json);
-        print(appInfo);
-        return UpdateEntity(
-            hasUpdate: appInfo.hasUpdate,
-            isIgnorable: appInfo.isIgnorable,
-            versionCode: appInfo.versionCode,
-            versionName: appInfo.versionName,
-            updateContent: appInfo.updateLog,
-            downloadUrl: appInfo.apkUrl,
-            apkSize: appInfo.apkSize);
+        return customParseJson(json);
       });
     } else {
       updateMessage("ios暂不支持XUpdate更新");
@@ -107,6 +103,20 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _message = message;
     });
+  }
+
+  ///将自定义的json内容解析为UpdateEntity实体类
+  UpdateEntity customParseJson(String json) {
+    AppInfo appInfo = AppInfo.fromJson(json);
+    print(appInfo);
+    return UpdateEntity(
+        hasUpdate: appInfo.hasUpdate,
+        isIgnorable: appInfo.isIgnorable,
+        versionCode: appInfo.versionCode,
+        versionName: appInfo.versionName,
+        updateContent: appInfo.updateLog,
+        downloadUrl: appInfo.apkUrl,
+        apkSize: appInfo.apkSize);
   }
 
   @override
@@ -131,7 +141,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 autoFitWidget(ButtonBar(
                   alignment:
-                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                      MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
                     RaisedButton(
@@ -148,7 +158,7 @@ class _MyAppState extends State<MyApp> {
                 )),
                 autoFitWidget(ButtonBar(
                   alignment:
-                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                      MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
                     RaisedButton(
@@ -170,7 +180,7 @@ class _MyAppState extends State<MyApp> {
                 )),
                 autoFitWidget(ButtonBar(
                   alignment:
-                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                      MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
                     RaisedButton(
@@ -187,7 +197,7 @@ class _MyAppState extends State<MyApp> {
                 )),
                 autoFitWidget(ButtonBar(
                   alignment:
-                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                      MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
                     RaisedButton(
@@ -270,18 +280,6 @@ class _MyAppState extends State<MyApp> {
 
   ///直接传入UpdateEntity进行更新提示
   void checkUpdate8() {
-    AppInfo appInfo = AppInfo.fromJson(_customJson);
-
-    FlutterXUpdate.updateByInfo(updateEntity: UpdateEntity(
-        hasUpdate: appInfo.hasUpdate,
-        isIgnorable: appInfo.isIgnorable,
-        versionCode: appInfo.versionCode,
-        versionName: appInfo.versionName,
-        updateContent: appInfo.updateLog,
-        downloadUrl: appInfo.apkUrl,
-        apkSize: appInfo.apkSize)
-    );
+    FlutterXUpdate.updateByInfo(updateEntity: customParseJson(_customJson));
   }
-
-
 }
