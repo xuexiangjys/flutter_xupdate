@@ -2,6 +2,8 @@ package com.xuexiang.flutter_xupdate;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Color;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
@@ -153,6 +155,8 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         boolean supportBackgroundUpdate = call.argument("supportBackgroundUpdate");
         boolean isAutoMode = call.argument("isAutoMode");
         boolean isCustomParse = call.argument("isCustomParse");
+        String themeColor = call.argument("themeColor");
+        String topImageRes = call.argument("topImageRes");
         Double widthRatio = call.argument("widthRatio");
         Double heightRatio = call.argument("heightRatio");
 
@@ -171,18 +175,11 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         if (isCustomParse) {
             builder.updateParser(new FlutterCustomUpdateParser(mMethodChannel));
         }
-        if (widthRatio != null) {
-            builder.promptWidthRatio(widthRatio.floatValue());
-        }
-        if (heightRatio != null) {
-            builder.promptHeightRatio(heightRatio.floatValue());
-        }
-        if (overrideGlobalRetryStrategy) {
-            builder.updateDownLoader(new RetryUpdateDownloader(enableRetry, retryContent, retryUrl));
-        }
+
+        updatePromptStyle(builder, themeColor, topImageRes, widthRatio, heightRatio, overrideGlobalRetryStrategy, enableRetry, retryContent, retryUrl);
+
         builder.update();
     }
-
 
     /**
      * 直接传入UpdateEntity进行版本更新
@@ -200,6 +197,8 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
 
         boolean supportBackgroundUpdate = call.argument("supportBackgroundUpdate");
         boolean isAutoMode = call.argument("isAutoMode");
+        String themeColor = call.argument("themeColor");
+        String topImageRes = call.argument("topImageRes");
         Double widthRatio = call.argument("widthRatio");
         Double heightRatio = call.argument("heightRatio");
 
@@ -212,6 +211,34 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         UpdateManager.Builder builder = XUpdate.newBuild(mActivity.get())
                 .isAutoMode(isAutoMode)
                 .supportBackgroundUpdate(supportBackgroundUpdate);
+
+        updatePromptStyle(builder, themeColor, topImageRes, widthRatio, heightRatio, overrideGlobalRetryStrategy, enableRetry, retryContent, retryUrl);
+
+        builder.build().update(updateEntity);
+
+    }
+
+    /**
+     * 更新弹窗的样式
+     *
+     * @param builder
+     * @param themeColor                  主题颜色
+     * @param topImageRes                 弹窗顶部的图片
+     * @param widthRatio                  版本更新提示器宽度占屏幕的比例
+     * @param heightRatio                 版本更新提示器高度占屏幕的比例
+     * @param overrideGlobalRetryStrategy
+     * @param enableRetry
+     * @param retryContent
+     * @param retryUrl
+     */
+    private void updatePromptStyle(UpdateManager.Builder builder, String themeColor, String topImageRes, Double widthRatio, Double heightRatio, boolean overrideGlobalRetryStrategy, boolean enableRetry, String retryContent, String retryUrl) {
+        if (!TextUtils.isEmpty(themeColor)) {
+            builder.promptThemeColor(Color.parseColor(themeColor));
+        }
+        if (!TextUtils.isEmpty(topImageRes)) {
+            int topImageResId = mActivity.get().getResources().getIdentifier(topImageRes, "drawable", mActivity.get().getPackageName());
+            builder.promptTopResId(topImageResId);
+        }
         if (widthRatio != null) {
             builder.promptWidthRatio(widthRatio.floatValue());
         }
@@ -221,8 +248,6 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         if (overrideGlobalRetryStrategy) {
             builder.updateDownLoader(new RetryUpdateDownloader(enableRetry, retryContent, retryUrl));
         }
-        builder.build().update(updateEntity);
-
     }
 
 

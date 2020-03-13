@@ -147,12 +147,12 @@ class _MyAppState extends State<MyApp> {
                     RaisedButton(
                       child: Text('默认App更新'),
                       color: Colors.blue,
-                      onPressed: checkUpdate,
+                      onPressed: checkUpdateDefault,
                     ),
                     RaisedButton(
                       child: Text('默认App更新 + 支持后台更新'),
                       color: Colors.blue,
-                      onPressed: checkUpdate1,
+                      onPressed: checkUpdateSupportBackground,
                     ),
                   ],
                 )),
@@ -164,17 +164,17 @@ class _MyAppState extends State<MyApp> {
                     RaisedButton(
                       child: Text('调整宽高比'),
                       color: Colors.blue,
-                      onPressed: checkUpdate2,
+                      onPressed: checkUpdateRatio,
                     ),
                     RaisedButton(
                       child: Text('强制更新'),
                       color: Colors.blue,
-                      onPressed: checkUpdate3,
+                      onPressed: checkUpdateForce,
                     ),
                     RaisedButton(
                       child: Text('自动模式'),
                       color: Colors.blue,
-                      onPressed: checkUpdate4,
+                      onPressed: checkUpdateAutoMode,
                     ),
                   ],
                 )),
@@ -186,12 +186,12 @@ class _MyAppState extends State<MyApp> {
                     RaisedButton(
                       child: Text('下载时点击取消允许切换下载方式'),
                       color: Colors.blue,
-                      onPressed: checkUpdate5,
+                      onPressed: enableChangeDownLoadType,
                     ),
                     RaisedButton(
                       child: Text('显示重试提示弹窗'),
                       color: Colors.blue,
-                      onPressed: checkUpdate6,
+                      onPressed: showRetryDialogTip,
                     ),
                   ],
                 )),
@@ -203,12 +203,24 @@ class _MyAppState extends State<MyApp> {
                     RaisedButton(
                       child: Text('使用自定义json解析'),
                       color: Colors.blue,
-                      onPressed: checkUpdate7,
+                      onPressed: customJsonParse,
                     ),
                     RaisedButton(
                       child: Text('直接传入UpdateEntity进行更新'),
                       color: Colors.blue,
-                      onPressed: checkUpdate8,
+                      onPressed: checkUpdateByUpdateEntity,
+                    ),
+                  ],
+                )),
+                autoFitWidget(ButtonBar(
+                  alignment:
+                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                  mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text('自定义更新弹窗样式'),
+                      color: Colors.blue,
+                      onPressed: customPromptDialog,
                     ),
                   ],
                 ))
@@ -232,32 +244,32 @@ class _MyAppState extends State<MyApp> {
       "https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_custom.json";
 
   ///默认App更新
-  void checkUpdate() {
+  void checkUpdateDefault() {
     FlutterXUpdate.checkUpdate(url: _updateUrl);
   }
 
   ///默认App更新 + 支持后台更新
-  void checkUpdate1() {
+  void checkUpdateSupportBackground() {
     FlutterXUpdate.checkUpdate(url: _updateUrl, supportBackgroundUpdate: true);
   }
 
   ///调整宽高比
-  void checkUpdate2() {
+  void checkUpdateRatio() {
     FlutterXUpdate.checkUpdate(url: _updateUrl, widthRatio: 0.6);
   }
 
   ///强制更新
-  void checkUpdate3() {
+  void checkUpdateForce() {
     FlutterXUpdate.checkUpdate(url: _updateUrl2);
   }
 
   ///自动模式, 如果需要完全无人干预，自动更新，需要root权限【静默安装需要】
-  void checkUpdate4() {
+  void checkUpdateAutoMode() {
     FlutterXUpdate.checkUpdate(url: _updateUrl, isAutoMode: true);
   }
 
   ///下载时点击取消允许切换下载方式
-  void checkUpdate5() {
+  void enableChangeDownLoadType() {
     FlutterXUpdate.checkUpdate(
         url: _updateUrl,
         overrideGlobalRetryStrategy: true,
@@ -267,19 +279,26 @@ class _MyAppState extends State<MyApp> {
   }
 
   ///显示重试提示弹窗
-  void checkUpdate6() {
+  void showRetryDialogTip() {
     FlutterXUpdate.showRetryUpdateTipDialog(
         retryContent: "Github下载速度太慢了，是否考虑切换蒲公英下载？",
         retryUrl: "https://www.pgyer.com/flutter_learn");
   }
 
   ///使用自定义json解析
-  void checkUpdate7() {
+  void customJsonParse() {
     FlutterXUpdate.checkUpdate(url: _updateUrl3, isCustomParse: true);
   }
 
   ///直接传入UpdateEntity进行更新提示
-  void checkUpdate8() {
+  void checkUpdateByUpdateEntity() {
     FlutterXUpdate.updateByInfo(updateEntity: customParseJson(_customJson));
   }
+
+
+  ///自定义更新弹窗样式
+  void customPromptDialog() {
+    FlutterXUpdate.checkUpdate(url: _updateUrl, themeColor: '#FFFFAC5D', topImageRes: 'bg_update_top');
+  }
+
 }

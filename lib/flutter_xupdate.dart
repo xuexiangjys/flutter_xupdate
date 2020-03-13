@@ -90,6 +90,12 @@ class FlutterXUpdate {
       ///是否是自定义解析协议
       bool isCustomParse = false,
 
+      ///应用弹窗的主题色
+      String themeColor = '',
+
+      ///应用弹窗的顶部图片资源名
+      String topImageRes = '',
+
       ///版本更新提示器宽度占屏幕的比例, 不设置的话不做约束
       double widthRatio,
 
@@ -115,6 +121,8 @@ class FlutterXUpdate {
       "supportBackgroundUpdate": supportBackgroundUpdate,
       "isAutoMode": isAutoMode,
       "isCustomParse": isCustomParse,
+      "themeColor": themeColor,
+      "topImageRes": topImageRes,
       "widthRatio": widthRatio,
       "heightRatio": heightRatio,
       "overrideGlobalRetryStrategy": overrideGlobalRetryStrategy,
@@ -134,6 +142,12 @@ class FlutterXUpdate {
 
       ///是否开启自动模式
       bool isAutoMode = false,
+
+      ///应用弹窗的主题色
+      String themeColor = '',
+
+      ///应用弹窗的顶部图片资源名
+      String topImageRes = '',
 
       ///版本更新提示器宽度占屏幕的比例, 不设置的话不做约束
       double widthRatio,
@@ -158,6 +172,8 @@ class FlutterXUpdate {
       "updateEntity": updateEntity.toMap(),
       "supportBackgroundUpdate": supportBackgroundUpdate,
       "isAutoMode": isAutoMode,
+      "themeColor": themeColor,
+      "topImageRes": topImageRes,
       "widthRatio": widthRatio,
       "heightRatio": heightRatio,
       "overrideGlobalRetryStrategy": overrideGlobalRetryStrategy,

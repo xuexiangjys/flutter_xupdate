@@ -24,6 +24,10 @@ Demonstrates how to use the flutter_xupdate plugin.
 
 ![](./art/4.png)
 
+* Custom Update Prompt Style
+
+![](./art/5.png)
+
 ---
 
 ## UseCase
@@ -89,32 +93,32 @@ Demonstrates how to use the flutter_xupdate plugin.
 
 ```
   ///默认App更新
-  void checkUpdate() {
+  void checkUpdateDefault() {
     FlutterXUpdate.checkUpdate(url: _updateUrl);
   }
 
   ///默认App更新 + 支持后台更新
-  void checkUpdate1() {
+  void checkUpdateSupportBackground() {
     FlutterXUpdate.checkUpdate(url: _updateUrl, supportBackgroundUpdate: true);
   }
 
   ///调整宽高比
-  void checkUpdate2() {
+  void checkUpdateRatio() {
     FlutterXUpdate.checkUpdate(url: _updateUrl, widthRatio: 0.6);
   }
 
   ///强制更新
-  void checkUpdate3() {
+  void checkUpdateForce() {
     FlutterXUpdate.checkUpdate(url: mUpdateUrl2);
   }
 
   ///自动模式, 如果需要完全无人干预，自动更新，需要root权限【静默安装需要】
-  void checkUpdate4() {
+  void checkUpdateAutoMode() {
     FlutterXUpdate.checkUpdate(url: _updateUrl, isAutoMode: true);
   }
 
   ///下载时点击取消允许切换下载方式
-  void checkUpdate5() {
+  void enableChangeDownLoadType() {
     FlutterXUpdate.checkUpdate(
       url: _updateUrl,
       overrideGlobalRetryStrategy: true,
@@ -158,8 +162,25 @@ FlutterXUpdate.checkUpdate(url: _updateUrl3, isCustomParse: true);
 
 ```
 ///直接传入UpdateEntity进行更新提示
-void checkUpdate8() {
+void checkUpdateByUpdateEntity() {
     FlutterXUpdate.updateByInfo(updateEntity: customParseJson(_customJson));
+}
+```
+
+### Custom Update Prompt Style
+
+> Currently, only theme color and top picture customization are supported!
+
+1.Configure top picture, Path: `android/app/src/main/res/values/drawable`, For example:
+
+![](./art/6.png)
+
+2.Set the parameter `themeColor` and `topImageRes`
+
+```
+///自定义更新弹窗样式
+void customPromptDialog() {
+    FlutterXUpdate.checkUpdate(url: _updateUrl, themeColor: '#FFFFAC5D', topImageRes: 'bg_update_top');
 }
 ```
 
