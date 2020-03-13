@@ -1,3 +1,8 @@
+
+## 0.0.3
+
+* Add custom update prompt style function.
+
 ## 0.0.2
 
 * Add custom JSON parsing function.
