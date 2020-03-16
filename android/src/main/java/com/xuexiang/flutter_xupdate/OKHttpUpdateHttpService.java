@@ -104,6 +104,7 @@ public class OKHttpUpdateHttpService implements IUpdateHttpService {
     public void download(@NonNull String url, @NonNull String path, @NonNull String fileName, final @NonNull IUpdateHttpService.DownloadCallback callback) {
         OkHttpUtils.get()
                 .url(url)
+                .tag(url)
                 .build()
                 .execute(new FileCallBack(path, fileName) {
                     @Override
@@ -131,7 +132,7 @@ public class OKHttpUpdateHttpService implements IUpdateHttpService {
 
     @Override
     public void cancelDownload(@NonNull String url) {
-
+        OkHttpUtils.getInstance().cancelTag(url);
     }
 
     private Map<String, String> transform(Map<String, Object> params) {
