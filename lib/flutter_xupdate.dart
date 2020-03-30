@@ -2,8 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_xupdate/update_entity.dart';
+import 'package:package_info/package_info.dart';
+import 'update_entity.dart';
+import 'update_info.dart';
 export 'update_entity.dart';
+export 'update_info.dart';
 
 typedef Future<dynamic> ErrorHandler(Map<String, dynamic> event);
 typedef Future<UpdateEntity> ParseHandler(String json);
@@ -245,5 +248,33 @@ class FlutterXUpdate {
       "retryUrl": retryUrl,
     };
     await _channel.invokeMethod('showRetryUpdateTipDialog', map);
+  }
+
+  ///默认的版本更新检查返回JsonFormat的解析方法
+  static Future<UpdateEntity> defaultUpdateParser(String json) async {
+    UpdateInfo updateInfo = UpdateInfo.fromJson(json);
+    if (updateInfo == null || updateInfo.code != 0) {
+      return null;
+    }
+
+    //进行二次校验
+    bool hasUpdate = updateInfo.updateStatus != NO_NEW_VERSION;
+    if (hasUpdate) {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      //服务器返回的最新版本小于等于现在的版本，不需要更新
+      if (updateInfo.versionCode <= int.parse(packageInfo.buildNumber)) {
+        hasUpdate = false;
+      }
+    }
+
+    return UpdateEntity(
+        hasUpdate: hasUpdate,
+        isForce: updateInfo.updateStatus == HAVE_NEW_VERSION_FORCED_UPLOAD,
+        versionCode: updateInfo.versionCode,
+        versionName: updateInfo.versionName,
+        updateContent: updateInfo.modifyContent,
+        downloadUrl: updateInfo.downloadUrl,
+        apkSize: updateInfo.apkSize,
+        apkMd5: updateInfo.apkMd5);
   }
 }

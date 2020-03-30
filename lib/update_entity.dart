@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 
 ///
-/// 版本更新信息
+/// 版本更新信息，用于显示版本更新弹窗
 ///
 class UpdateEntity {
   //===========是否可以升级=============//
