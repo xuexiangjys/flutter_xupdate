@@ -31,6 +31,7 @@ import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -79,6 +80,7 @@ public class OKHttpUpdateHttpService implements IUpdateHttpService {
             requestCall = OkHttpUtils.postString()
                     .url(url)
                     .content(UpdateUtils.toJson(params))
+                    .mediaType(MediaType.parse("application/json; charset=utf-8"))
                     .build();
         } else {
             requestCall = OkHttpUtils.post()
