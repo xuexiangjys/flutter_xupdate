@@ -41,10 +41,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         //打包时推荐使用原生打包，如果嫌打的包太大，可以配置如下信息，按需打包
-        ndk {
-            abiFilters 'armeabi', 'armeabi-v7a'
-            // , 'arm64-v8a'
-        }
+//        ndk {
+//            abiFilters 'armeabi', 'armeabi-v7a'
+//            // , 'arm64-v8a'
+//        }
     }
 
     buildTypes {
