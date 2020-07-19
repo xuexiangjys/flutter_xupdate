@@ -128,6 +128,7 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
                 //设置默认公共请求参数
                 .param("versionCode", UpdateUtils.getVersionCode(mApplication))
                 .param("appKey", mApplication.getPackageName())
+                .setIUpdatePrompter(new FlutterUpdatePrompter())
                 .setIUpdateDownLoader(new RetryUpdateDownloader(enableRetry, retryContent, retryUrl))
                 //这个必须设置！实现网络请求功能。
                 .setIUpdateHttpService(new OKHttpUpdateHttpService(isPostJson));
