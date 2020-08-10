@@ -2,8 +2,10 @@ import 'dart:convert';
 
 /// 0:无版本更新
 const int NO_NEW_VERSION = 0;
+
 /// 1:有版本更新，不需要强制升级
 const int HAVE_NEW_VERSION = 1;
+
 /// 2:有版本更新，需要强制升级
 const int HAVE_NEW_VERSION_FORCED_UPLOAD = 2;
 
@@ -93,4 +95,3 @@ class UpdateInfo {
     return 'UpdateInfo Code: $code, Msg: $msg, UpdateStatus: $updateStatus, VersionCode: $versionCode, VersionName: $versionName, UploadTime: $uploadTime, ModifyContent: $modifyContent, DownloadUrl: $downloadUrl, ApkMd5: $apkMd5, ApkSize: $apkSize';
   }
 }
-
