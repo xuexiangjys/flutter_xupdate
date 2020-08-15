@@ -182,7 +182,7 @@ void checkUpdate8() {
 
 ![](./example/art/6.png)
 
-2.Set the parameter `themeColor` and `topImageRes`
+2.Set the parameter `themeColor` 、 `topImageRes` and `buttonTextColor`
 
 ```
 ///自定义更新弹窗样式
