@@ -298,7 +298,7 @@ class _MyAppState extends State<MyApp> {
 
   ///自定义更新弹窗样式
   void customPromptDialog() {
-    FlutterXUpdate.checkUpdate(url: _updateUrl, themeColor: '#FFFFAC5D', topImageRes: 'bg_update_top');
+    FlutterXUpdate.checkUpdate(url: _updateUrl, themeColor: '#FFFFAC5D', topImageRes: 'bg_update_top', buttonTextColor: '#FFFFFFFF');
   }
 
 }

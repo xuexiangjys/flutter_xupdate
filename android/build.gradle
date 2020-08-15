@@ -36,8 +36,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.xuexiangjys:XUpdate:2.0.1'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.github.xuexiangjys:XUpdate:2.0.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'

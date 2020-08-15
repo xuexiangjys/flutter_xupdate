@@ -158,6 +158,8 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         boolean isCustomParse = call.argument("isCustomParse");
         String themeColor = call.argument("themeColor");
         String topImageRes = call.argument("topImageRes");
+        String buttonTextColor = call.argument("buttonTextColor");
+
         Double widthRatio = call.argument("widthRatio");
         Double heightRatio = call.argument("heightRatio");
 
@@ -177,7 +179,7 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
             builder.updateParser(new FlutterCustomUpdateParser(mMethodChannel));
         }
 
-        updatePromptStyle(builder, themeColor, topImageRes, widthRatio, heightRatio, overrideGlobalRetryStrategy, enableRetry, retryContent, retryUrl);
+        updatePromptStyle(builder, themeColor, topImageRes, buttonTextColor, widthRatio, heightRatio, overrideGlobalRetryStrategy, enableRetry, retryContent, retryUrl);
 
         builder.update();
     }
@@ -200,6 +202,8 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         boolean isAutoMode = call.argument("isAutoMode");
         String themeColor = call.argument("themeColor");
         String topImageRes = call.argument("topImageRes");
+        String buttonTextColor = call.argument("buttonTextColor");
+
         Double widthRatio = call.argument("widthRatio");
         Double heightRatio = call.argument("heightRatio");
 
@@ -213,7 +217,7 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
                 .isAutoMode(isAutoMode)
                 .supportBackgroundUpdate(supportBackgroundUpdate);
 
-        updatePromptStyle(builder, themeColor, topImageRes, widthRatio, heightRatio, overrideGlobalRetryStrategy, enableRetry, retryContent, retryUrl);
+        updatePromptStyle(builder, themeColor, topImageRes, buttonTextColor, widthRatio, heightRatio, overrideGlobalRetryStrategy, enableRetry, retryContent, retryUrl);
 
         builder.build().update(updateEntity);
 
@@ -225,20 +229,24 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
      * @param builder
      * @param themeColor                  主题颜色
      * @param topImageRes                 弹窗顶部的图片
+     * @param buttonTextColor             按钮文字的颜色
      * @param widthRatio                  版本更新提示器宽度占屏幕的比例
      * @param heightRatio                 版本更新提示器高度占屏幕的比例
-     * @param overrideGlobalRetryStrategy
-     * @param enableRetry
-     * @param retryContent
-     * @param retryUrl
+     * @param overrideGlobalRetryStrategy 是否覆盖全局的重试策略
+     * @param enableRetry                 在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
+     * @param retryContent                重试提示弹窗的提示内容
+     * @param retryUrl                    重试提示弹窗点击后跳转的url
      */
-    private void updatePromptStyle(UpdateManager.Builder builder, String themeColor, String topImageRes, Double widthRatio, Double heightRatio, boolean overrideGlobalRetryStrategy, boolean enableRetry, String retryContent, String retryUrl) {
+    private void updatePromptStyle(UpdateManager.Builder builder, String themeColor, String topImageRes, String buttonTextColor, Double widthRatio, Double heightRatio, boolean overrideGlobalRetryStrategy, boolean enableRetry, String retryContent, String retryUrl) {
         if (!TextUtils.isEmpty(themeColor)) {
             builder.promptThemeColor(Color.parseColor(themeColor));
         }
         if (!TextUtils.isEmpty(topImageRes)) {
             int topImageResId = mActivity.get().getResources().getIdentifier(topImageRes, "drawable", mActivity.get().getPackageName());
             builder.promptTopResId(topImageResId);
+        }
+        if (!TextUtils.isEmpty(buttonTextColor)) {
+            builder.promptButtonTextColor(Color.parseColor(buttonTextColor));
         }
         if (widthRatio != null) {
             builder.promptWidthRatio(widthRatio.floatValue());

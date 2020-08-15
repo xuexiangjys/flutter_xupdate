@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Support button text color modification
+
 ## 0.0.4
 
 * Support androidx.

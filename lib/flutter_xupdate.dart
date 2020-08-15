@@ -99,6 +99,9 @@ class FlutterXUpdate {
       ///应用弹窗的顶部图片资源名
       String topImageRes = '',
 
+      ///按钮文字的颜色
+      String buttonTextColor = '',
+
       ///版本更新提示器宽度占屏幕的比例, 不设置的话不做约束
       double widthRatio,
 
@@ -126,6 +129,7 @@ class FlutterXUpdate {
       "isCustomParse": isCustomParse,
       "themeColor": themeColor,
       "topImageRes": topImageRes,
+      "buttonTextColor": buttonTextColor,
       "widthRatio": widthRatio,
       "heightRatio": heightRatio,
       "overrideGlobalRetryStrategy": overrideGlobalRetryStrategy,
@@ -152,6 +156,9 @@ class FlutterXUpdate {
       ///应用弹窗的顶部图片资源名
       String topImageRes = '',
 
+      ///按钮文字的颜色
+      String buttonTextColor = '',
+
       ///版本更新提示器宽度占屏幕的比例, 不设置的话不做约束
       double widthRatio,
 
@@ -177,6 +184,7 @@ class FlutterXUpdate {
       "isAutoMode": isAutoMode,
       "themeColor": themeColor,
       "topImageRes": topImageRes,
+      "buttonTextColor": buttonTextColor,
       "widthRatio": widthRatio,
       "heightRatio": heightRatio,
       "overrideGlobalRetryStrategy": overrideGlobalRetryStrategy,
