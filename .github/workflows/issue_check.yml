@@ -9,8 +9,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
-          run: flutter pub get
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '1.10.0'
+      - run: flutter pub get
       - name: Check issue actor  # 步骤名字。可以自定义。
         uses: fluttercandies/no-free-usage-action@master  # 使用最新版本的action
         with:
