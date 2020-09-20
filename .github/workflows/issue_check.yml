@@ -1,4 +1,5 @@
 name: No Free usage issue checker  # Action名字。可以自定义
+
 on:
   issues:
     types: [opened, reopened]  # 在issue打开和重新打开时调用
@@ -9,15 +10,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '12.x'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
-      - run: flutter pub get
       - name: Check issue actor  # 步骤名字。可以自定义。
-        uses: fluttercandies/no-free-usage-action@master  # 使用最新版本的action
+        uses: fluttercandies/no-free-usage-action@v1.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}  # 由GitHub提供的临时Token，必须在此处进行传递，且必须为这个值。
           forked: '--no-forked'
+          words:  To support our project, please file the issue after you starred the repo. Thanks! 🙂
