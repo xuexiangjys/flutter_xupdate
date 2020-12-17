@@ -18,6 +18,7 @@ package com.xuexiang.flutter_xupdate;
 
 import androidx.annotation.NonNull;
 
+import com.xuexiang.xupdate.logs.UpdateLog;
 import com.xuexiang.xupdate.proxy.IUpdateHttpService;
 import com.xuexiang.xupdate.utils.UpdateUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -46,11 +47,22 @@ public class OKHttpUpdateHttpService implements IUpdateHttpService {
     private boolean mIsPostJson;
 
     public OKHttpUpdateHttpService(boolean isPostJson) {
+        this(20000, isPostJson);
+    }
+
+    /**
+     * 构造方法
+     *
+     * @param timeout    请求超时响应时间
+     * @param isPostJson 是否使用json
+     */
+    public OKHttpUpdateHttpService(int timeout, boolean isPostJson) {
         mIsPostJson = isPostJson;
         OkHttpUtils.initClient(new OkHttpClient.Builder()
-                .connectTimeout(20000L, TimeUnit.MILLISECONDS)
-                .readTimeout(20000L, TimeUnit.MILLISECONDS)
+                .connectTimeout(timeout, TimeUnit.MILLISECONDS)
+                .readTimeout(timeout, TimeUnit.MILLISECONDS)
                 .build());
+        UpdateLog.d("设置请求超时响应时间:" + timeout + "ms, 是否使用json:" + isPostJson);
     }
 
     @Override

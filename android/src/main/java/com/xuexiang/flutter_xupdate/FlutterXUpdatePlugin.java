@@ -95,6 +95,7 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
         Map<String, Object> map = (Map<String, Object>) call.arguments;
         Boolean debug = (Boolean) map.get("debug");
         Boolean isGet = (Boolean) map.get("isGet");
+        Integer timeout = (Integer) map.get("timeout");
         Boolean isPostJson = (Boolean) map.get("isPostJson");
         Boolean isWifiOnly = (Boolean) map.get("isWifiOnly");
         Boolean isAutoMode = (Boolean) map.get("isAutoMode");
@@ -131,7 +132,7 @@ public class FlutterXUpdatePlugin implements FlutterPlugin, ActivityAware, Metho
                 .setIUpdatePrompter(new FlutterUpdatePrompter())
                 .setIUpdateDownLoader(new RetryUpdateDownloader(enableRetry, retryContent, retryUrl))
                 //这个必须设置！实现网络请求功能。
-                .setIUpdateHttpService(new OKHttpUpdateHttpService(isPostJson));
+                .setIUpdateHttpService(new OKHttpUpdateHttpService(timeout, isPostJson));
         if (map.get("params") != null) {
             XUpdate.get().params((Map<String, Object>) map.get("params"));
         }

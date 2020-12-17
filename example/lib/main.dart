@@ -42,6 +42,9 @@ class _MyAppState extends State<MyApp> {
               ///post请求是否是上传json
               isPostJson: false,
 
+              ///请求响应超时时间
+              timeout: 25000,
+
               ///是否开启自动模式
               isWifiOnly: false,
 

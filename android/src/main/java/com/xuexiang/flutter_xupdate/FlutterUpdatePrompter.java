@@ -60,7 +60,6 @@ public class FlutterUpdatePrompter implements IUpdatePrompter {
             UpdateDialog.newInstance(context, updateEntity, new DefaultPrompterProxyImpl(updateProxy), promptEntity).show();
         } else {
             UpdateDialogActivity.show(context, updateEntity, new DefaultPrompterProxyImpl(updateProxy), promptEntity);
-
         }
     }
 }

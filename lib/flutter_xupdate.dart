@@ -34,6 +34,9 @@ class FlutterXUpdate {
       ///post请求是否是上传json
       bool isPostJson = false,
 
+      ///请求超时响应时间(单位:毫秒)
+      int timeout = 20000,
+
       ///是否只在wifi下才能进行更新
       bool isWifiOnly = true,
 
@@ -59,6 +62,7 @@ class FlutterXUpdate {
         "debug": debug,
         "isGet": !isPost,
         "isPostJson": isPostJson,
+        "timeout": timeout,
         "isWifiOnly": isWifiOnly,
         "isAutoMode": isAutoMode,
         "supportSilentInstall": supportSilentInstall,

@@ -1,6 +1,6 @@
 # flutter_xupdate
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://pub.dev/packages/flutter_xupdate)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://pub.dev/packages/flutter_xupdate)
 [![Build Status](https://travis-ci.org/xuexiangjys/flutter_xupdate.svg?branch=master)](https://travis-ci.org/xuexiangjys/flutter_xupdate)
 [![Issue](https://img.shields.io/github/issues/xuexiangjys/flutter_xupdate.svg)](https://github.com/xuexiangjys/flutter_xupdate/issues)
 [![Star](https://img.shields.io/github/stars/xuexiangjys/flutter_xupdate.svg)](https://github.com/xuexiangjys/flutter_xupdate)
@@ -14,7 +14,7 @@ You should ensure that you add the `flutter_xupdate` as a dependency in your flu
 ```
 // pub 集成
 dependencies:
-  flutter_xupdate: ^1.0.0
+  flutter_xupdate: ^1.0.1
 
 //github  集成
 dependencies:
@@ -51,6 +51,8 @@ Modify the Main App Theme to AppCompat，For example:
          isPost: false,
          ///post请求是否是上传json
          isPostJson: false,
+         ///请求响应超时时间
+         timeout: 25000,
          ///是否开启自动模式
          isWifiOnly: false,
          ///是否开启自动模式
@@ -200,6 +202,7 @@ Name | Type | Default | Description
 debug | bool | false | Whether Output log
 isPost | bool | false | Whether use post request
 isPostJson | bool | false | Whether post request upload json format
+timeout | int | 20000(ms) | Request response timeout
 isWifiOnly | bool | true | Whether update only under WiFi
 isAutoMode | bool | false | Whether to turn on automatic mode
 supportSilentInstall | bool | false | Whether to support silent installation requires that the device has root permission

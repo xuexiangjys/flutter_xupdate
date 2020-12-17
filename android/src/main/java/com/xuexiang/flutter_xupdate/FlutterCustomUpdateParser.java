@@ -53,11 +53,13 @@ public class FlutterCustomUpdateParser implements IUpdateParser {
     /**
      * 处理flutter端自定义处理的json解析
      *
-     * @param result
-     * @param callback
+     * @param result   结果
+     * @param callback 回调
      */
     private void handleCustomParseResult(HashMap<String, Object> result, IUpdateParseCallback callback) {
-
+        if (callback == null) {
+            return;
+        }
         callback.onParseResult(parseUpdateEntityMap(result));
     }
 
