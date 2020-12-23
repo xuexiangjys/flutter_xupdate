@@ -1,3 +1,7 @@
+## 1.0.2
+
+* Fix the problem that the progress is not updated
+
 ## 1.0.1
 
 * Optimize version update UI
