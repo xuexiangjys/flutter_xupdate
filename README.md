@@ -7,6 +7,10 @@
 
 A Flutter plugin for [XUpdate](https://github.com/xuexiangjys/XUpdate) -- Android Update Library。See the use [Chinese Document](https://github.com/xuexiangjys/flutter_xupdate/wiki) for details。
 
+## Video tutorial
+
+[How to use flutter_xupdate](https://www.bilibili.com/video/BV1YK4y1S73e)
+
 ## Getting Started
 
 You should ensure that you add the `flutter_xupdate` as a dependency in your flutter project.
