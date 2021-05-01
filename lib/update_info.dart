@@ -14,34 +14,34 @@ const int HAVE_NEW_VERSION_FORCED_UPLOAD = 2;
 ///
 class UpdateInfo {
   ///请求返回码
-  final int code;
+  final int? code;
 
   ///请求错误信息
-  final String msg;
+  final String? msg;
 
   ///更新的状态
-  final int updateStatus;
+  final int? updateStatus;
 
   ///最新版本号[根据版本号来判别是否需要升级]
-  final int versionCode;
+  final int? versionCode;
 
   ///最新APP版本的名称[用于展示的版本名]
-  final String versionName;
+  final String? versionName;
 
   ///APP更新时间
-  final String uploadTime;
+  final String? uploadTime;
 
   ///APP变更的内容
-  final String modifyContent;
+  final String? modifyContent;
 
   ///下载地址
-  final String downloadUrl;
+  final String? downloadUrl;
 
   ///Apk MD5值
-  final String apkMd5;
+  final String? apkMd5;
 
   ///Apk大小【单位：KB】
-  final int apkSize;
+  final int? apkSize;
 
   UpdateInfo(
       {this.code,
@@ -70,7 +70,7 @@ class UpdateInfo {
     };
   }
 
-  static UpdateInfo fromMap(Map<String, dynamic> map) {
+  static UpdateInfo? fromMap(Map<String, dynamic>? map) {
     if (map == null) return null;
 
     return UpdateInfo(
@@ -88,7 +88,7 @@ class UpdateInfo {
 
   String toJson() => json.encode(toMap());
 
-  static UpdateInfo fromJson(String source) => fromMap(json.decode(source));
+  static UpdateInfo? fromJson(String source) => fromMap(json.decode(source));
 
   @override
   String toString() {

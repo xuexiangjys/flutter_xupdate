@@ -1,3 +1,7 @@
+## 2.0.0
+
+* support null-safety
+
 ## 1.0.2
 
 * Fix the problem that the progress is not updated

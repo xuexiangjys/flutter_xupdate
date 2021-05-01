@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info/package_info.dart';
 import 'update_entity.dart';
@@ -8,21 +7,21 @@ import 'update_info.dart';
 export 'update_entity.dart';
 export 'update_info.dart';
 
-typedef Future<dynamic> ErrorHandler(Map<String, dynamic> event);
-typedef Future<UpdateEntity> ParseHandler(String json);
+typedef ErrorHandler = Future<dynamic> Function(Map<String, dynamic>? event);
+typedef ParseHandler = Future<UpdateEntity> Function(String? json);
 
 ///Android全量更新插件
 class FlutterXUpdate {
-  static ErrorHandler _onUpdateError;
-  static ParseHandler _onUpdateParse;
+  static ErrorHandler? _onUpdateError;
+  static ParseHandler? _onUpdateParse;
 
   FlutterXUpdate._();
 
   static const MethodChannel _channel =
-      const MethodChannel('com.xuexiang/flutter_xupdate');
+      MethodChannel('com.xuexiang/flutter_xupdate');
 
   ///初始化插件(Android Only)
-  static Future<Map> init(
+  static Future<Map?> init(
       {
 
       ///是否输出日志
@@ -50,28 +49,28 @@ class FlutterXUpdate {
       bool enableRetry = false,
 
       ///重试提示弹窗的提示内容
-      String retryContent = "",
+      String retryContent = '',
 
       ///重试提示弹窗点击后跳转的url
-      String retryUrl = "",
+      String retryUrl = '',
 
       ///需要设置的公共参数
-      Map params}) async {
+      Map? params}) async {
     if (Platform.isAndroid) {
-      Map<String, Object> map = {
-        "debug": debug,
-        "isGet": !isPost,
-        "isPostJson": isPostJson,
-        "timeout": timeout,
-        "isWifiOnly": isWifiOnly,
-        "isAutoMode": isAutoMode,
-        "supportSilentInstall": supportSilentInstall,
-        "enableRetry": enableRetry,
-        "retryContent": retryContent,
-        "retryUrl": retryUrl,
-        "params": params,
+      final Map<String, Object?> map = {
+        'debug': debug,
+        'isGet': !isPost,
+        'isPostJson': isPostJson,
+        'timeout': timeout,
+        'isWifiOnly': isWifiOnly,
+        'isAutoMode': isAutoMode,
+        'supportSilentInstall': supportSilentInstall,
+        'enableRetry': enableRetry,
+        'retryContent': retryContent,
+        'retryUrl': retryUrl,
+        'params': params,
       };
-      final Map resultMap = await _channel.invokeMethod('initXUpdate', map);
+      final Map? resultMap = await _channel.invokeMethod('initXUpdate', map);
       return resultMap;
     } else {
       return null;
@@ -83,10 +82,10 @@ class FlutterXUpdate {
       {
 
       ///版本检查的地址
-      @required String url,
+      required String url,
 
       ///传递的参数
-      Map params,
+      Map? params,
 
       ///是否支持后台更新
       bool supportBackgroundUpdate = false,
@@ -107,10 +106,10 @@ class FlutterXUpdate {
       String buttonTextColor = '',
 
       ///版本更新提示器宽度占屏幕的比例, 不设置的话不做约束
-      double widthRatio,
+      double? widthRatio,
 
       ///版本更新提示器高度占屏幕的比例, 不设置的话不做约束
-      double heightRatio,
+      double? heightRatio,
 
       ///是否覆盖全局的重试策略
       bool overrideGlobalRetryStrategy = false,
@@ -119,34 +118,34 @@ class FlutterXUpdate {
       bool enableRetry = false,
 
       ///重试提示弹窗的提示内容
-      String retryContent = "",
+      String retryContent = '',
 
       ///重试提示弹窗点击后跳转的url
-      String retryUrl = ""}) async {
-    assert(Platform.isAndroid && url != null);
+      String retryUrl = ''}) async {
+    assert(Platform.isAndroid);
 
-    Map<String, Object> map = {
-      "url": url,
-      "params": params,
-      "supportBackgroundUpdate": supportBackgroundUpdate,
-      "isAutoMode": isAutoMode,
-      "isCustomParse": isCustomParse,
-      "themeColor": themeColor,
-      "topImageRes": topImageRes,
-      "buttonTextColor": buttonTextColor,
-      "widthRatio": widthRatio,
-      "heightRatio": heightRatio,
-      "overrideGlobalRetryStrategy": overrideGlobalRetryStrategy,
-      "enableRetry": enableRetry,
-      "retryContent": retryContent,
-      "retryUrl": retryUrl,
+    final Map<String, Object?> map = {
+      'url': url,
+      'params': params,
+      'supportBackgroundUpdate': supportBackgroundUpdate,
+      'isAutoMode': isAutoMode,
+      'isCustomParse': isCustomParse,
+      'themeColor': themeColor,
+      'topImageRes': topImageRes,
+      'buttonTextColor': buttonTextColor,
+      'widthRatio': widthRatio,
+      'heightRatio': heightRatio,
+      'overrideGlobalRetryStrategy': overrideGlobalRetryStrategy,
+      'enableRetry': enableRetry,
+      'retryContent': retryContent,
+      'retryUrl': retryUrl,
     };
     await _channel.invokeMethod('checkUpdate', map);
   }
 
   ///检查版本更新(Android Only)
   static Future<Null> updateByInfo(
-      {@required UpdateEntity updateEntity,
+      {required UpdateEntity updateEntity,
 
       ///是否支持后台更新
       bool supportBackgroundUpdate = false,
@@ -164,10 +163,10 @@ class FlutterXUpdate {
       String buttonTextColor = '',
 
       ///版本更新提示器宽度占屏幕的比例, 不设置的话不做约束
-      double widthRatio,
+      double? widthRatio,
 
       ///版本更新提示器高度占屏幕的比例, 不设置的话不做约束
-      double heightRatio,
+      double? heightRatio,
 
       ///是否覆盖全局的重试策略
       bool overrideGlobalRetryStrategy = false,
@@ -176,25 +175,25 @@ class FlutterXUpdate {
       bool enableRetry = false,
 
       ///重试提示弹窗的提示内容
-      String retryContent = "",
+      String retryContent = '',
 
       ///重试提示弹窗点击后跳转的url
-      String retryUrl = ""}) async {
-    assert(Platform.isAndroid && updateEntity != null);
+      String retryUrl = ''}) async {
+    assert(Platform.isAndroid);
 
-    Map<String, Object> map = {
-      "updateEntity": updateEntity.toMap(),
-      "supportBackgroundUpdate": supportBackgroundUpdate,
-      "isAutoMode": isAutoMode,
-      "themeColor": themeColor,
-      "topImageRes": topImageRes,
-      "buttonTextColor": buttonTextColor,
-      "widthRatio": widthRatio,
-      "heightRatio": heightRatio,
-      "overrideGlobalRetryStrategy": overrideGlobalRetryStrategy,
-      "enableRetry": enableRetry,
-      "retryContent": retryContent,
-      "retryUrl": retryUrl,
+    final Map<String, Object?> map = {
+      'updateEntity': updateEntity.toMap(),
+      'supportBackgroundUpdate': supportBackgroundUpdate,
+      'isAutoMode': isAutoMode,
+      'themeColor': themeColor,
+      'topImageRes': topImageRes,
+      'buttonTextColor': buttonTextColor,
+      'widthRatio': widthRatio,
+      'heightRatio': heightRatio,
+      'overrideGlobalRetryStrategy': overrideGlobalRetryStrategy,
+      'enableRetry': enableRetry,
+      'retryContent': retryContent,
+      'retryUrl': retryUrl,
     };
     await _channel.invokeMethod('updateByInfo', map);
   }
@@ -207,7 +206,7 @@ class FlutterXUpdate {
   ///   detailMsg：错误详细信息
   /// }
   static void setErrorHandler({
-    ErrorHandler onUpdateError,
+    ErrorHandler? onUpdateError,
   }) {
     _onUpdateError = onUpdateError;
     _channel.setMethodCallHandler(_handleMethod);
@@ -215,7 +214,7 @@ class FlutterXUpdate {
 
   /// 设置自定义解析json的接口(Android Only)
   static void setCustomParseHandler({
-    ParseHandler onUpdateParse,
+    ParseHandler? onUpdateParse,
   }) {
     _onUpdateParse = onUpdateParse;
     _channel.setMethodCallHandler(_handleMethod);
@@ -223,8 +222,8 @@ class FlutterXUpdate {
 
   /// 设置版本更新的回调接口(Android Only)
   static void setUpdateHandler({
-    ErrorHandler onUpdateError,
-    ParseHandler onUpdateParse,
+    ErrorHandler? onUpdateError,
+    ParseHandler? onUpdateParse,
   }) {
     _onUpdateError = onUpdateError;
     _onUpdateParse = onUpdateParse;
@@ -233,14 +232,14 @@ class FlutterXUpdate {
 
   static Future _handleMethod(MethodCall call) async {
     switch (call.method) {
-      case "onUpdateError":
-        return _onUpdateError(call.arguments.cast<String, dynamic>());
-      case "onCustomUpdateParse":
-        UpdateEntity updateEntity = await _onUpdateParse(
+      case 'onUpdateError':
+        return _onUpdateError!(call.arguments.cast<String, dynamic>());
+      case 'onCustomUpdateParse':
+        final UpdateEntity updateEntity = await _onUpdateParse!(
             call.arguments.cast<String, dynamic>()['update_json']);
         return updateEntity.toMap();
       default:
-        throw new UnsupportedError("Unrecognized Event");
+        throw UnsupportedError('Unrecognized Event');
     }
   }
 
@@ -249,22 +248,22 @@ class FlutterXUpdate {
       {
 
       ///重试提示弹窗的提示内容
-      String retryContent = "",
+      String retryContent = '',
 
       ///重试提示弹窗点击后跳转的url
-      @required String retryUrl}) async {
+      required String retryUrl}) async {
     assert(Platform.isAndroid);
 
-    Map<String, Object> map = {
-      "retryContent": retryContent,
-      "retryUrl": retryUrl,
+    final Map<String, Object> map = {
+      'retryContent': retryContent,
+      'retryUrl': retryUrl,
     };
     await _channel.invokeMethod('showRetryUpdateTipDialog', map);
   }
 
   ///默认的版本更新检查返回JsonFormat的解析方法
-  static Future<UpdateEntity> defaultUpdateParser(String json) async {
-    UpdateInfo updateInfo = UpdateInfo.fromJson(json);
+  static Future<UpdateEntity?> defaultUpdateParser(String json) async {
+    final UpdateInfo? updateInfo = UpdateInfo.fromJson(json);
     if (updateInfo == null || updateInfo.code != 0) {
       return null;
     }
@@ -272,9 +271,9 @@ class FlutterXUpdate {
     //进行二次校验
     bool hasUpdate = updateInfo.updateStatus != NO_NEW_VERSION;
     if (hasUpdate) {
-      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
       //服务器返回的最新版本小于等于现在的版本，不需要更新
-      if (updateInfo.versionCode <= int.parse(packageInfo.buildNumber)) {
+      if (updateInfo.versionCode! <= int.parse(packageInfo.buildNumber)) {
         hasUpdate = false;
       }
     }

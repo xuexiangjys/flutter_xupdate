@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
               ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
               enableRetry: false)
           .then((value) {
-        updateMessage("初始化成功: $value");
+        updateMessage('初始化成功: $value');
       }).catchError((error) {
         print(error);
       });
@@ -87,18 +87,18 @@ class _MyAppState extends State<MyApp> {
         //下载失败
         if (message["code"] == 4000) {
           FlutterXUpdate.showRetryUpdateTipDialog(
-              retryContent: "Github被墙无法继续下载，是否考虑切换蒲公英下载？",
-              retryUrl: "https://www.pgyer.com/flutter_learn");
+              retryContent: 'Github被墙无法继续下载，是否考虑切换蒲公英下载？',
+              retryUrl: 'https://www.pgyer.com/flutter_learn');
         }
         setState(() {
-          _message = "$message";
+          _message = '$message';
         });
       }, onUpdateParse: (String json) async {
         //这里是自定义json解析
         return customParseJson(json);
       });
     } else {
-      updateMessage("ios暂不支持XUpdate更新");
+      updateMessage('ios暂不支持XUpdate更新');
     }
   }
 
@@ -130,7 +130,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('flutter_xupdate Demo'),
         ),
         body: SingleChildScrollView(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start, //文本是起始端对齐
               children: <Widget>[
@@ -138,23 +138,28 @@ class _MyAppState extends State<MyApp> {
                   alignment: Alignment.topLeft,
                   height: 150,
                   color: Colors.grey,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Text(_message,
-                      style: TextStyle(color: Colors.white, fontSize: 12)),
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 12)),
                 ),
                 autoFitWidget(ButtonBar(
                   alignment:
                       MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text('默认App更新'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('默认App更新'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: checkUpdateDefault,
                     ),
-                    RaisedButton(
-                      child: Text('默认App更新 + 支持后台更新'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('默认App更新 + 支持后台更新'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: checkUpdateSupportBackground,
                     ),
                   ],
@@ -164,19 +169,25 @@ class _MyAppState extends State<MyApp> {
                       MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text('调整宽高比'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('调整宽高比'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: checkUpdateRatio,
                     ),
-                    RaisedButton(
-                      child: Text('强制更新'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('强制更新'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: checkUpdateForce,
                     ),
-                    RaisedButton(
-                      child: Text('自动模式'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('自动模式'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: checkUpdateAutoMode,
                     ),
                   ],
@@ -186,14 +197,18 @@ class _MyAppState extends State<MyApp> {
                       MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text('下载时点击取消允许切换下载方式'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('下载时点击取消允许切换下载方式'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: enableChangeDownLoadType,
                     ),
-                    RaisedButton(
-                      child: Text('显示重试提示弹窗'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('显示重试提示弹窗'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: showRetryDialogTip,
                     ),
                   ],
@@ -203,26 +218,32 @@ class _MyAppState extends State<MyApp> {
                       MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text('使用自定义json解析'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('使用自定义json解析'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: customJsonParse,
                     ),
-                    RaisedButton(
-                      child: Text('直接传入UpdateEntity进行更新'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('直接传入UpdateEntity进行更新'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: checkUpdateByUpdateEntity,
                     ),
                   ],
                 )),
                 autoFitWidget(ButtonBar(
                   alignment:
-                  MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
+                      MainAxisAlignment.start, //布局方向，默认MainAxisAlignment.end
                   mainAxisSize: MainAxisSize.min, //主轴大小，默认MainAxisSize.max
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text('自定义更新弹窗样式'),
-                      color: Colors.blue,
+                    ElevatedButton(
+                      child: const Text('自定义更新弹窗样式'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
                       onPressed: customPromptDialog,
                     ),
                   ],
@@ -234,17 +255,17 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget autoFitWidget(Widget child) {
-    return Platform.isAndroid ? child : SizedBox();
+    return Platform.isAndroid ? child : const SizedBox();
   }
 
-  String _updateUrl =
-      "https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_test.json";
+  final String _updateUrl =
+      'https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_test.json';
 
-  String _updateUrl2 =
-      "https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_forced.json";
+  final String _updateUrl2 =
+      'https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_forced.json';
 
-  String _updateUrl3 =
-      "https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_custom.json";
+  final String _updateUrl3 =
+      'https://gitee.com/xuexiangjys/XUpdate/raw/master/jsonapi/update_custom.json';
 
   ///默认App更新
   void checkUpdateDefault() {
@@ -298,10 +319,12 @@ class _MyAppState extends State<MyApp> {
     FlutterXUpdate.updateByInfo(updateEntity: customParseJson(_customJson));
   }
 
-
   ///自定义更新弹窗样式
   void customPromptDialog() {
-    FlutterXUpdate.checkUpdate(url: _updateUrl, themeColor: '#FFFFAC5D', topImageRes: 'bg_update_top', buttonTextColor: '#FFFFFFFF');
+    FlutterXUpdate.checkUpdate(
+        url: _updateUrl,
+        themeColor: '#FFFFAC5D',
+        topImageRes: 'bg_update_top',
+        buttonTextColor: '#FFFFFFFF');
   }
-
 }
