@@ -197,6 +197,10 @@ void customPromptDialog() {
 }
 ```
 
+【Note】: When you use the command `flutter build apk` to make a release package, If you use the `topImageRes` property, you must configure `shrinkResources` to false, otherwise the pop-up window will display an exception!
+
+![](./example/art/7.png)
+
 ## Property value
 
 ### Initialization

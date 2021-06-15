@@ -52,6 +52,8 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             minifyEnabled true
+            // TODO: 如果你自定义了更新弹窗的顶部样式的话（这里的顶部样式使用的是反射），这里shrinkResources就必须是false，否则打正式包的时候，弹窗会显示异常！
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }

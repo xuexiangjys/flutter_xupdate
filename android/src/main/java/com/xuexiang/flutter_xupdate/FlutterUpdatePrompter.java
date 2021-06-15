@@ -54,6 +54,7 @@ public class FlutterUpdatePrompter implements IUpdatePrompter {
             UpdateLog.e("showPrompt failed, context is null!");
             return;
         }
+        UpdateLog.d("[FlutterUpdatePrompter] showPrompt, " + promptEntity);
         if (context instanceof FragmentActivity) {
             UpdateDialogFragment.show(((FragmentActivity) context).getSupportFragmentManager(), updateEntity, new DefaultPrompterProxyImpl(updateProxy), promptEntity);
         } else if (context instanceof Activity) {
