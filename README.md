@@ -11,6 +11,10 @@ A Flutter plugin for [XUpdate](https://github.com/xuexiangjys/XUpdate) -- Androi
 
 [How to use flutter_xupdate](https://www.bilibili.com/video/BV1YK4y1S73e)
 
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/xuexiangjys/flutter_xupdate.svg)](https://starchart.cc/xuexiangjys/flutter_xupdate)
+
 ## Getting Started
 
 You should ensure that you add the `flutter_xupdate` as a dependency in your flutter project.
