@@ -22,7 +22,7 @@ You should ensure that you add the `flutter_xupdate` as a dependency in your flu
 ```
 // pub 集成
 dependencies:
-  flutter_xupdate: ^2.0.0
+  flutter_xupdate: ^2.0.1
 
 //github  集成
 dependencies:
