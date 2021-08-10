@@ -1,11 +1,17 @@
 # flutter_xupdate
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://pub.dev/packages/flutter_xupdate)
+[![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](https://pub.dev/packages/flutter_xupdate)
 [![Build Status](https://travis-ci.org/xuexiangjys/flutter_xupdate.svg?branch=master)](https://travis-ci.org/xuexiangjys/flutter_xupdate)
 [![Issue](https://img.shields.io/github/issues/xuexiangjys/flutter_xupdate.svg)](https://github.com/xuexiangjys/flutter_xupdate/issues)
 [![Star](https://img.shields.io/github/stars/xuexiangjys/flutter_xupdate.svg)](https://github.com/xuexiangjys/flutter_xupdate)
 
 A Flutter plugin for [XUpdate](https://github.com/xuexiangjys/XUpdate) -- Android Update Library。See the use [Chinese Document](https://github.com/xuexiangjys/flutter_xupdate/wiki) for details。
+
+## About me
+
+| WeChat public number   | juejin     |  zhihu    |  CSDN   |   jianshu   |   segmentfault  |   bilibili  |   toutiao
+|---------|---------|--------- |---------|---------|---------|---------|---------|
+| [我的Android开源之旅](https://ss.im5i.com/2021/06/14/6tqAU.png)  |  [Click me](https://juejin.im/user/598feef55188257d592e56ed/posts)    |   [Click me](https://www.zhihu.com/people/xuexiangjys/posts)       |   [Click me](https://xuexiangjys.blog.csdn.net/)  |   [Click me](https://www.jianshu.com/u/6bf605575337)  |   [Click me](https://segmentfault.com/u/xuexiangjys)  |   [Click me](https://space.bilibili.com/483850585)  |   [Click me](https://img.rruu.net/image/5ff34ff7b02dd)
 
 ## Video tutorial
 
