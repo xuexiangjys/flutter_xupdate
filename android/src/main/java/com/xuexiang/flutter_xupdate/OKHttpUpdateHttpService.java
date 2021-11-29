@@ -18,6 +18,7 @@ package com.xuexiang.flutter_xupdate;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
 import com.xuexiang.xupdate.logs.UpdateLog;
 import com.xuexiang.xupdate.proxy.IUpdateHttpService;
 import com.xuexiang.xupdate.utils.UpdateUtils;
@@ -91,7 +92,7 @@ public class OKHttpUpdateHttpService implements IUpdateHttpService {
         if (mIsPostJson) {
             requestCall = OkHttpUtils.postString()
                     .url(url)
-                    .content(UpdateUtils.toJson(params))
+                    .content(new Gson().toJson(params))
                     .mediaType(MediaType.parse("application/json; charset=utf-8"))
                     .build();
         } else {
@@ -156,6 +157,5 @@ public class OKHttpUpdateHttpService implements IUpdateHttpService {
         }
         return map;
     }
-
 
 }

@@ -79,6 +79,4 @@ public class RetryUpdateDownloader extends DefaultUpdateDownloader {
         }
     }
 
-
-
 }

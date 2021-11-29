@@ -1,3 +1,10 @@
+## 2.0.2
+
+* Upgrade dependent library version.
+* Solve the pop-up display problem of multiple version updates caused by fast execution.
+* Solve the problem of displaying update prompt to exit the full screen.
+* Optimize log printing.
+
 ## 2.0.1
 
 * Migrated from the deprecated package_info plugin to package_info_plus.

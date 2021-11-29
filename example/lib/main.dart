@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -246,6 +247,13 @@ class _MyAppState extends State<MyApp> {
                               Theme.of(context).primaryColor)),
                       onPressed: customPromptDialog,
                     ),
+                    ElevatedButton(
+                      child: const Text('定时更新'),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).primaryColor)),
+                      onPressed: timerUpdateTask,
+                    ),
                   ],
                 ))
               ],
@@ -326,5 +334,12 @@ class _MyAppState extends State<MyApp> {
         themeColor: '#FFFFAC5D',
         topImageRes: 'bg_update_top',
         buttonTextColor: '#FFFFFFFF');
+  }
+
+  ///定时执行任务
+  void timerUpdateTask() {
+    Timer.periodic(const Duration(seconds: 5), (timer) {
+      checkUpdateDefault();
+    });
   }
 }

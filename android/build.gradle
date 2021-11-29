@@ -1,5 +1,5 @@
 group 'com.xuexiang.flutter_xupdate'
-version '1.0-SNAPSHOT'
+version '2.0.2'
 
 buildscript {
     repositories {
@@ -36,10 +36,10 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.xuexiangjys:XUpdate:2.0.7'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.github.xuexiangjys:XUpdate:2.1.1'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.zhy:okhttputils:2.6.2'
-    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.12'
 
 }
