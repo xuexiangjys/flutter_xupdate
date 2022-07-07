@@ -1,3 +1,10 @@
+## 2.0.3
+
+* Increase pop-up compatibility.
+* Default update pop-up disable return key.
+* Optimize the judgment of ignorable version.
+* Solve possible null pointer problems.
+
 ## 2.0.2
 
 * Upgrade dependent library version.
