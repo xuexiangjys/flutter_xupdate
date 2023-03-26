@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="xupdate_retry_tip_dialog_content">The download speed is too slow, do you consider switching the download method?</string>
+
+</resources>

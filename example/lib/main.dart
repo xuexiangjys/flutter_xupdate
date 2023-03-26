@@ -313,7 +313,7 @@ class _MyAppState extends State<MyApp> {
   ///显示重试提示弹窗
   void showRetryDialogTip() {
     FlutterXUpdate.showRetryUpdateTipDialog(
-        retryContent: "Github下载速度太慢了，是否考虑切换蒲公英下载？",
+        // retryContent: "Github下载速度太慢了，是否考虑切换蒲公英下载？",
         retryUrl: "https://www.pgyer.com/flutter_learn");
   }
 

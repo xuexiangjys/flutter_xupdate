@@ -65,19 +65,19 @@ public class RetryUpdateTipDialog extends AppCompatActivity implements DialogInt
         final String url = getIntent().getStringExtra(KEY_URL);
 
         if (TextUtils.isEmpty(content)) {
-            content = "更新下载速度太慢了，是否考虑切换下载方式？";
+            content = getString(R.string.xupdate_retry_tip_dialog_content);
         }
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setMessage(content)
-                .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         goWeb(url);
                     }
                 })
-                .setNegativeButton( "否", null)
+                .setNegativeButton(android.R.string.no, null)
                 .setCancelable(false)
                 .show();
         dialog.setOnDismissListener(this);

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="xupdate_retry_tip_dialog_content">更新下载速度太慢了，是否考虑切换下载方式？</string>
+
+</resources>
