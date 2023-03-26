@@ -1,6 +1,6 @@
 # flutter_xupdate
 
-[![Version](https://img.shields.io/badge/version-2.0.3-blue.svg)](https://pub.dev/packages/flutter_xupdate)
+[![Version](https://img.shields.io/badge/version-2.0.4-blue.svg)](https://pub.dev/packages/flutter_xupdate)
 [![Build Status](https://travis-ci.org/xuexiangjys/flutter_xupdate.svg?branch=master)](https://travis-ci.org/xuexiangjys/flutter_xupdate)
 [![Issue](https://img.shields.io/github/issues/xuexiangjys/flutter_xupdate.svg)](https://github.com/xuexiangjys/flutter_xupdate/issues)
 [![Star](https://img.shields.io/github/stars/xuexiangjys/flutter_xupdate.svg)](https://github.com/xuexiangjys/flutter_xupdate)
@@ -28,7 +28,7 @@ You should ensure that you add the `flutter_xupdate` as a dependency in your flu
 ```
 // pub 集成
 dependencies:
-  flutter_xupdate: ^2.0.3
+  flutter_xupdate: ^2.0.4
 
 //github  集成
 dependencies:

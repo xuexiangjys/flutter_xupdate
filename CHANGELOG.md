@@ -1,3 +1,8 @@
+## 2.0.4
+
+* Upgrade dependent library version.
+* RetryUpdateTipDialog globalization.
+
 ## 2.0.3
 
 * Increase pop-up compatibility.
