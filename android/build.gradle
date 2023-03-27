@@ -1,23 +1,21 @@
 group 'com.xuexiang.flutter_xupdate'
-version '2.0.4'
+version '3.0.0'
 
 buildscript {
     repositories {
-        google()
-        mavenCentral()
-        jcenter { url 'https://maven.aliyun.com/repository/jcenter' }
+        google { url'https://maven.aliyun.com/repository/google'}
+        maven { url 'https://maven.aliyun.com/repository/public' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:7.2.0'
     }
 }
 
 rootProject.allprojects {
     repositories {
-        google()
-        mavenCentral()
-        jcenter { url 'https://maven.aliyun.com/repository/jcenter' }
+        google { url'https://maven.aliyun.com/repository/google'}
+        maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url "https://jitpack.io" }
     }
 }
@@ -25,11 +23,15 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         minSdkVersion 16
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         disable 'InvalidPackage'

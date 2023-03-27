@@ -1,3 +1,7 @@
+## 3.0.0
+
+support flutter 3.0
+
 ## 2.0.4
 
 * Upgrade dependent library version.
